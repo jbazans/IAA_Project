@@ -2,14 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-
-chrome_options = Options()
-chrome_options.add_argument("--disable-infobars")
-chrome_options.add_argument("--kiosk")
-chrome_options.add_argument("--disable-extensions")
-chrome_options.add_argument("--ignore-certificate-errors")
+from selenium.webdriver.common.keys import Keys
 
 driver = webdriver.Chrome("chromedriver.exe")
-url = "http://apps2.mef.gob.pe/consulta-vfp-webapp/consultaExpediente.jspx"
+url = "http://jyldigital.com/productos.php"
 driver.get(url)
+driver.find_element_by_id("buscar").send_keys("taza")
+driver.find_element_by_id("buscar").send_keys(Keys.ENTER)
+productos = driver.find_elements_by_class_name('producto-contenido')
+for producto in productos:
+    print (producto.find_element_by_class_name('descripcion-texto-producto').text)
